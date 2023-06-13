@@ -1,47 +1,32 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 class Comps extends JComponent {
     public static Graphics2D g2;
-    static int mouseX=MouseInfo.getPointerInfo().getLocation().x;
-    static int mouseY=MouseInfo.getPointerInfo().getLocation().y;
-    static int prevX;
-    static int prevY;
-    static int finX;
-    static int finY;
-    static boolean released =false;
-    static boolean pressed=false;
-    static boolean once=false;
-    static boolean once2=false;
+    public static BufferedImage img;
+    public static int x1;
+    public static int y1;
+    public static int x2;
+    public static int y2;
 
-
-    public void paintComponent(Graphics g){
-        mouseX=MouseInfo.getPointerInfo().getLocation().x;
-        mouseY=MouseInfo.getPointerInfo().getLocation().y;
-
-        g2 = (Graphics2D) g;
-        g2.drawImage(Main.img, 0, 0, this);
-
-        if(Mouse.pressed) {
-            if(!once){
-                prevX=mouseX;
-                prevY=mouseY;
-                once=true;
-            }
-            g2.drawRect(prevX, prevY, mouseX, mouseY);
-            System.out.println("mousex "+mouseX+" prevx "+prevX);
-        }
-        if(Mouse.released){
-            if(!once2){
-                finX=mouseX;
-                finY=mouseY;
-                once2=true;
-            }
-            g2.drawRect(prevX, prevY, finX, finY);
-        }
-
-        g2.setColor(new Color(255, 255, 255));
+    public Comps() throws AWTException {
+        Robot robot=new Robot();
+        img=robot.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
     }
+
+    public void paintComponent(Graphics g) {
+        g2=(Graphics2D) g;
+        g2.drawImage(img,0,0,this);
+    }
+    public static void crop(){
+        img = img.getSubimage(x1,y1,Math.abs(x1-x2),Math.abs(y1-y2));
+
+    }
+//    public static void once(){
+//        img=img.getSubimage(x1,y1,Math.abs(x1-x2),Math.abs(y1-y2));
+//        img.createGraphics();
+//    }
 
 
 }
