@@ -9,6 +9,8 @@ class Comps extends JComponent {
     int prevY;
     int finX;
     int finY;
+    boolean released =false;
+    boolean pressed=false;
 
     public void paintComponent(Graphics g){
         g2 = (Graphics2D) g;
@@ -17,8 +19,13 @@ class Comps extends JComponent {
         mouseY=getMousePosition().y;
 
         g2.drawImage(Main.img, 0, 0, this);
-        
-        g2.drawRect(prevX,prevY,mouseX-prevX,mouseY-prevY);
+
+        if(!released&&pressed) {
+            g2.drawRect(prevX, prevY, mouseX - prevX, mouseY - prevY);
+        } else {
+            g2.drawRect(prevX, prevY, finX, finY);
+        }
+
         g2.setColor(new Color(100,100,100));
     }
 
@@ -27,11 +34,19 @@ class Comps extends JComponent {
         mouseY=getMousePosition().y;
     }
     public void press(){
-        prevX=getMousePosition().x;
-        prevY=getMousePosition().y;
+        if(getMousePosition()!=null) {
+            pressed=true;
+            prevX = getMousePosition().x;
+            prevY = getMousePosition().y;
+        } else {
+            System.out.println(getMousePosition());
+        }
     }
     public void release(){
-        finX=getMousePosition().x;
-        finY=getMousePosition().y;
+        if(getMousePosition()!=null) {
+            released = true;
+            finX = getMousePosition().x;
+            finY = getMousePosition().y;
+        }
     }
 }
