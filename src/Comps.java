@@ -3,50 +3,45 @@ import java.awt.*;
 
 class Comps extends JComponent {
     public static Graphics2D g2;
-    int mouseX;
-    int mouseY;
-    int prevX;
-    int prevY;
-    int finX;
-    int finY;
-    boolean released =false;
-    boolean pressed=false;
+    static int mouseX=MouseInfo.getPointerInfo().getLocation().x;
+    static int mouseY=MouseInfo.getPointerInfo().getLocation().y;
+    static int prevX;
+    static int prevY;
+    static int finX;
+    static int finY;
+    static boolean released =false;
+    static boolean pressed=false;
+    static boolean once=false;
+    static boolean once2=false;
+
 
     public void paintComponent(Graphics g){
+        mouseX=MouseInfo.getPointerInfo().getLocation().x;
+        mouseY=MouseInfo.getPointerInfo().getLocation().y;
+
         g2 = (Graphics2D) g;
-
-        mouseX=getMousePosition().x;
-        mouseY=getMousePosition().y;
-
         g2.drawImage(Main.img, 0, 0, this);
 
-        if(!released&&pressed) {
-            g2.drawRect(prevX, prevY, mouseX - prevX, mouseY - prevY);
-        } else {
+        if(Mouse.pressed) {
+            if(!once){
+                prevX=mouseX;
+                prevY=mouseY;
+                once=true;
+            }
+            g2.drawRect(prevX, prevY, mouseX, mouseY);
+            System.out.println("mousex "+mouseX+" prevx "+prevX);
+        }
+        if(Mouse.released){
+            if(!once2){
+                finX=mouseX;
+                finY=mouseY;
+                once2=true;
+            }
             g2.drawRect(prevX, prevY, finX, finY);
         }
 
-        g2.setColor(new Color(100,100,100));
+        g2.setColor(new Color(255, 255, 255));
     }
 
-    public void upd(){
-        mouseX=getMousePosition().x;
-        mouseY=getMousePosition().y;
-    }
-    public void press(){
-        if(getMousePosition()!=null) {
-            pressed=true;
-            prevX = getMousePosition().x;
-            prevY = getMousePosition().y;
-        } else {
-            System.out.println(getMousePosition());
-        }
-    }
-    public void release(){
-        if(getMousePosition()!=null) {
-            released = true;
-            finX = getMousePosition().x;
-            finY = getMousePosition().y;
-        }
-    }
+
 }

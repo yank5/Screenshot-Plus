@@ -41,6 +41,7 @@ public class Main {
                 }
             }
         });
+
         frame.addMouseListener(new Mouse());
 
 
@@ -48,8 +49,8 @@ public class Main {
 
 
         while(frame.isVisible()){
-            Comp.repaint();
-            Thread.sleep(16);
+                Comp.repaint();
+                Thread.sleep(16);
         }
     }
 }
