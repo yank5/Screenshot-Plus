@@ -25,7 +25,7 @@ public class Main extends Thread{
 
         //device.setFullScreenWindow(new Window(frame));
 
-
+        System.out.println(System.getProperty("user.dir"));
         Comp = new Comps();
         frame.add(Comp);
 
@@ -34,17 +34,9 @@ public class Main extends Thread{
                 if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
                     frame.dispose();
                 }
-                FileWriter fileWriter;
                 if(e.getKeyCode()==KeyEvent.VK_S&&e.isControlDown()){
-                    File file=new File("/home/aru/IdeaProjects/Screenshot_tool_rev2/src/test.png");
-                    try {
-                        ImageIO.write(Comps.img,"png",file);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    frame.dispose();
+                    save();
                 }
-
             }
         });
 
@@ -60,18 +52,24 @@ public class Main extends Thread{
                 Comps.x2 =MouseInfo.getPointerInfo().getLocation().x;
                 Comps.y2 =MouseInfo.getPointerInfo().getLocation().y;
                 Comps.crop();
-                //Comps.once();
+                save();
             }
         });
-
-
         frame.setVisible(true);
-
 
         while(frame.isVisible()){
                 Comp.repaint();
                 Thread.sleep(50);
         }
+    }
+    public static void save(){
+        File file=new File(System.getProperty("user.dir")+"/test.png");
+        try {
+            ImageIO.write(Comps.img,"png",file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Main.frame.dispose();
     }
 
     @Override

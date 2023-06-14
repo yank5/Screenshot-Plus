@@ -23,10 +23,6 @@ class Comps extends JComponent {
         img = img.getSubimage(x1,y1,Math.abs(x1-x2),Math.abs(y1-y2));
 
     }
-//    public static void once(){
-//        img=img.getSubimage(x1,y1,Math.abs(x1-x2),Math.abs(y1-y2));
-//        img.createGraphics();
-//    }
 
 
 }
