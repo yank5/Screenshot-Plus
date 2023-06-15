@@ -46,7 +46,6 @@ public class Main extends Thread{
                 Comps.x1 =MouseInfo.getPointerInfo().getLocation().x;
                 Comps.y1 =MouseInfo.getPointerInfo().getLocation().y;
             }
-
             @Override
             public void mouseReleased(MouseEvent e) {
                 Comps.x2 =MouseInfo.getPointerInfo().getLocation().x;
@@ -59,9 +58,10 @@ public class Main extends Thread{
 
         while(frame.isVisible()){
                 Comp.repaint();
-                Thread.sleep(50);
+                Thread.sleep(16);
         }
     }
+
     public static void save(){
         File file=new File(System.getProperty("user.dir")+"/test.png");
         try {
