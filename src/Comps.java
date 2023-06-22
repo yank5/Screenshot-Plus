@@ -21,9 +21,7 @@ class Comps extends JComponent {
         var mouse = MouseInfo.getPointerInfo().getLocation();
         x2 = mouse.x;
         y2 = mouse.y;
-
         g2.setColor(new Color(255, 255, 255));
-        g2.drawRect(500, 500, 100, 100);
 
         if (x1 != -1 || y1 != -1) {
             if (x1 - x2 < 0 && y1 - y2 < 0) {
